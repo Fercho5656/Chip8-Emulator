@@ -54,7 +54,7 @@ export default class Chip8 implements IChip8 {
   }
 
   loadRom(rom: Uint8Array) {
-    if (0xFFF - 0x200 <= rom.length) {
+    if (0xFFF - 0x200 < rom.length) {
       throw new Error('ROM too big for memory')
     }
     this.memory.set(rom, 0x200)
