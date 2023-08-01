@@ -1,4 +1,4 @@
-import { assert, describe, it, test } from 'vitest'
+import { assert, describe, expect, it, test } from 'vitest'
 import Chip8 from '../Chip8'
 import TestRom from '../const/TestRom'
 
@@ -63,4 +63,18 @@ test('Loads ROM into memory', () => {
   chip8.loadRom(TestRom)
   const rom = chip8.memory.slice(0x200)
   assert(rom.some((byte) => byte !== 0x00))
+})
+
+test('Loads ROM correctly if game barely fits in memory', () => {
+  const chip8 = new Chip8()
+  const MAX_ROM_SIZE = 3583
+
+  assert.doesNotThrow(() => chip8.loadRom(new Uint8Array(MAX_ROM_SIZE)))
+})
+
+test('Throws error if ROM is too big', () => {
+  const chip8 = new Chip8()
+  const MAX_ROM_SIZE = 3583
+
+  assert.throws(() => chip8.loadRom(new Uint8Array(MAX_ROM_SIZE + 1)))
 })
