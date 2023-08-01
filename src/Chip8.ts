@@ -6,6 +6,7 @@ export default class Chip8 implements IChip8 {
   memory: Uint8Array
   stack: Uint16Array
   V: Uint8Array
+  opcode: number
   I: number
   dt: number
   st: number
@@ -17,6 +18,7 @@ export default class Chip8 implements IChip8 {
     this.memory = new Uint8Array(4096)
     this.stack = new Uint16Array(16)
     this.V = new Uint8Array(16)
+    this.opcode = 0
     this.I = 0
     this.dt = 0
     this.st = 0
@@ -30,6 +32,7 @@ export default class Chip8 implements IChip8 {
     this.memory = new Uint8Array(4096)
     this.stack = new Uint16Array(16)
     this.V = new Uint8Array(16)
+    this.opcode = 0
     this.I = 0
     this.dt = 0
     this.st = 0
@@ -39,7 +42,10 @@ export default class Chip8 implements IChip8 {
   }
 
   cycle() {
-
+    // Fetch opcode
+    // Decode opcode
+    // Execute opcode
+    // Update timers
   }
 
   loadRom(rom: Uint8Array) {

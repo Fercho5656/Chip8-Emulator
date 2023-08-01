@@ -3,6 +3,7 @@ export default interface IChip8 {
   memory: Uint8Array
   stack: Uint16Array
   V: Uint8Array
+  opcode: number
   I: number
   dt: number
   st: number
