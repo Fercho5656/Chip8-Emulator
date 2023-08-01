@@ -1,5 +1,6 @@
 import IChip8 from "./IChip8"
-import { FONT_SET } from "./const/Chip8"
+import { FONT_SET } from "../const/Chip8"
+import opcodes from "./opcodes"
 
 export default class Chip8 implements IChip8 {
   screen: Uint8Array
@@ -43,7 +44,11 @@ export default class Chip8 implements IChip8 {
 
   cycle() {
     // Fetch opcode
+    this.opcode = this.memory[this.pc] << 8 | this.memory[this.pc + 1]
+    // console.log(`opcode: 0x${this.opcode.toString(16)}`)
     // Decode opcode
+    // console.log(`decoded opcode: 0x${(this.opcode & 0xF000).toString(16)}`)
+    opcodes[(this.opcode & 0xF000) as keyof typeof opcodes](this)
     // Execute opcode
     // Update timers
   }
