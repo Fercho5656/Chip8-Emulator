@@ -4,6 +4,7 @@ import opcodes from "./opcodes"
 
 export default class Chip8 implements IChip8 {
   screen: Uint8Array
+  keys: Uint8Array
   memory: Uint8Array
   stack: Uint16Array
   V: Uint8Array
@@ -16,6 +17,7 @@ export default class Chip8 implements IChip8 {
 
   constructor() {
     this.screen = new Uint8Array(64 * 32)
+    this.keys = new Uint8Array(16)
     this.memory = new Uint8Array(4096)
     this.stack = new Uint16Array(16)
     this.V = new Uint8Array(16)
@@ -30,6 +32,7 @@ export default class Chip8 implements IChip8 {
 
   init() {
     this.screen = new Uint8Array(64 * 32)
+    this.keys = new Uint8Array(16)
     this.memory = new Uint8Array(4096)
     this.stack = new Uint16Array(16)
     this.V = new Uint8Array(16)
