@@ -176,8 +176,8 @@ export default {
     chip8.pc += 2
   },
   0xE000: (chip8: Chip8) => { // EXXX Instructions set
-    const lastNibble = chip8.opcode & 0x000F
-    if (lastNibble === 0xE) { // Ex9E - Skip next instruction if key with the value of Vx is pressed
+    const lastNibble = chip8.opcode & 0x00FF
+    if (lastNibble === 0x9E) { // Ex9E - Skip next instruction if key with the value of Vx is pressed
       const X = (chip8.opcode & 0x0F00) >> 8
       if (chip8.keys[chip8.V[X]]) {
         chip8.pc += 2
@@ -185,7 +185,7 @@ export default {
       chip8.pc += 2
     }
 
-    if (lastNibble === 0x1) { // ExA1 - Skip next instruction if key with the value of Vx is not pressed
+    if (lastNibble === 0xA1) { // ExA1 - Skip next instruction if key with the value of Vx is not pressed
       const X = (chip8.opcode & 0x0F00) >> 8
       if (!chip8.keys[chip8.V[X]]) {
         chip8.pc += 2
@@ -205,7 +205,7 @@ export default {
       let keyPressed = false
       for (let i = 0; i < chip8.keys.length; i++) {
         if (chip8.keys[i]) {
-          chip8.V[X] = chip8.keys[i]
+          chip8.V[X] = i
           keyPressed = true
         }
       }
