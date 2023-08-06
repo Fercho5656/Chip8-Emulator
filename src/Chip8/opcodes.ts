@@ -2,13 +2,13 @@ import Chip8 from "."
 
 export default {
   0x0000: (chip8: Chip8) => { // 0x0XXX - Clear screen, return from subroutine, or jump to machine code routine
-    const lastNibble = chip8.opcode & 0x000F
-    if (lastNibble === 0x0) { // 0x00E0 - Clear screen
+    const lastNibble = chip8.opcode & 0x00FF
+    if (lastNibble === 0xE0) { // 0x00E0 - Clear screen
       chip8.screen.fill(0)
       chip8.pc += 2
     }
 
-    if (lastNibble === 0xE) { // 0x00EE - Return from subroutine
+    if (lastNibble === 0xEE) { // 0x00EE - Return from subroutine
       chip8.sp--
       chip8.pc = chip8.stack[chip8.sp]
       chip8.pc += 2
@@ -20,8 +20,8 @@ export default {
   },
   0x2000: (chip8: Chip8) => { // 0x2NNN - Call subroutine at NNN
     const NNN = chip8.opcode & 0x0FFF
-    chip8.sp++
     chip8.stack[chip8.sp] = chip8.pc
+    chip8.sp++
     chip8.pc = NNN
   },
   0x3000: (chip8: Chip8) => { // 0x3XKK - Skip next instruction if VX === KK

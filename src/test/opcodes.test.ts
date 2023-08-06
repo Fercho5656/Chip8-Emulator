@@ -56,7 +56,7 @@ describe('Test opcodes', () => {
 
     expect(expectedSP).toBe(chip8.sp)
     expect(chip8.pc).toBe(NNN)
-    expect(chip8.stack[chip8.sp]).toBe(actualPC)
+    expect(chip8.stack[actualSP]).toBe(actualPC)
   })
 
   it('0x3XKK - Should skip next instruction if VX === KK', () => {
@@ -548,10 +548,10 @@ describe('Test opcodes', () => {
     const actualPC = chip8.pc
     chip8.memory[chip8.pc] = 0xF0 | X
     chip8.memory[chip8.pc + 1] = 0x07
-    chip8.dt = 0x1
+    chip8.dt = 0xF
     chip8.cycle()
 
-    expect(chip8.V[X]).toBe(chip8.dt)
+    expect(chip8.V[X]).toBe((chip8.dt + 0x1) & 0xFF)
     expect(chip8.pc).toBe(actualPC + 2)
   })
 
@@ -591,7 +591,7 @@ describe('Test opcodes', () => {
     chip8.V[X] = 0x1
     chip8.cycle()
 
-    expect(chip8.dt).toBe(actualDT + chip8.V[X])
+    expect(chip8.dt).toBe((actualDT - 0x1) + chip8.V[X])
     expect(chip8.pc).toBe(actualPC + 2)
   })
 
@@ -605,7 +605,7 @@ describe('Test opcodes', () => {
     chip8.V[X] = 0x1
     chip8.cycle()
 
-    expect(chip8.st).toBe(actualST + chip8.V[X])
+    expect(chip8.st).toBe((actualST - 0x1) + chip8.V[X])
     expect(chip8.pc).toBe(actualPC + 2)
   })
 
