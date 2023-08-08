@@ -16,3 +16,8 @@ export const FONT_SET = new Uint8Array([
   0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
   0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 ])
+
+export const SCREEN_WIDTH = 64
+export const SCREEN_HEIGHT = 32
+export const SCREEN_SCALE = 10
+export const FPS = 30
